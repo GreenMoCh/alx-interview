@@ -5,6 +5,10 @@
 def ismand_perimeter(grid):
     """
     Calculates the perimeter of an island
+    Args:
+        grid: second list of ints
+    Returns:
+        the perimeter of the island
     """
     perimeter = 0
 
