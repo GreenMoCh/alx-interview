@@ -2,7 +2,7 @@
 """Island perimeter"""
 
 
-def ismand_perimeter(grid):
+def island_perimeter(grid):
     """
     Calculates the perimeter of an island
     Args:
