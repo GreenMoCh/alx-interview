@@ -7,8 +7,6 @@ def isWinner(x, nums):
     Maria and Ben are playing a game
     """
     def sieve_of_eratosthenes(n):
-        """
-        """
         primes = [True] * (n + 1)
         primes[0] = primes[1] = False
         p = 2
@@ -17,10 +15,11 @@ def isWinner(x, nums):
                 for i in range(p * p, n + 1, p):
                     primes[i] = False
             p += 1
-        return [i for i in range(n + 1) if primes[i]]
+        return primes
 
     def winner(n):
         primes = sieve_of_eratosthenes(n)
+        prime_numbers = [i for i in range(n + 1) if primes[i]]
         if len(primes) % 2 == 0:
             return "Ben"
         else:
