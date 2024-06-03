@@ -16,4 +16,4 @@ def makeChange(coins, total):
         for amount in range(coin, total + 1):
             db[amount] = min(db[amount], db[amount - coin] + 1)
 
-    return db[total] if db[total} != float('inf') else -1
+    return db[total] if db[total] != float('inf') else -1
