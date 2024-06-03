@@ -1,37 +1,42 @@
 #!/usr/bin/python3
-"""Prime Game"""
+"""0. Prime Game - Maria and Ben are playing a game"""
 
 
 def isWinner(x, nums):
+    """x - rounds
+    nums - numbers list
     """
-    Maria and Ben are playing a game
-    """
-    def sieve_of_eratosthenes(n):
-        primes = [True] * (n + 1)
-        primes[0] = primes[1] = False
-        p = 2
-        while p * p <= n:
-            if primes[p]:
-                for i in range(p * p, n + 1, p):
-                    primes[i] = False
-            p += 1
-        return primes
-
-    def winner(n):
-        primes = sieve_of_eratosthenes(n)
-        prime_numbers = [i for i in range(n + 1) if primes[i]]
-        if len(primes) % 2 == 0:
-            return "Ben"
-        else:
-            return "Maria"
-
-    winners = [winner(n) for n in nums]
-    maria_wins = winners.count("Maria")
-    ben_wins = winners.count("Ben")
-
-    if maria_wins == ben_wins:
+    if x <= 0 or nums is None:
         return None
-    elif maria_wins > ben_wins:
-        return "Maria"
-    else:
+    if x != len(nums):
+        return None
+
+    ben = 0
+    maria = 0
+
+    a = [1 for x in range(sorted(nums)[-1] + 1)]
+    a[0], a[1] = 0, 0
+    for i in range(2, len(a)):
+        rm_multiples(a, i)
+
+    for i in nums:
+        if sum(a[0:i + 1]) % 2 == 0:
+            ben += 1
+        else:
+            maria += 1
+    if ben > maria:
         return "Ben"
+    if maria > ben:
+        return "Maria"
+    return None
+
+
+def rm_multiples(ls, x):
+    """removes multiple
+    of primes
+    """
+    for i in range(2, len(ls)):
+        try:
+            ls[i * x] = 0
+        except (ValueError, IndexError):
+            break
