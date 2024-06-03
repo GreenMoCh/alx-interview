@@ -6,34 +6,33 @@ def isWinner(x, nums):
     """
     Maria and Ben are playing a game
     """
-    if x <= 0 or nums is None:
-        return None
-    if x != len(nums):
-        return None
+    def sieve_of_eratosthenes(n):
+        """
+        """
+        primes = [True] * (n + 1)
+        primes[0] = primes[1] = False
+        p = 2
+        while p * p <= n:
+            if primes[p]:
+                for i in range(p * p, n + 1, p):
+                    primes[i] = False
+            p += 1
+        return [i for i in range(n + 1) if primes[i]]
 
-    ben = 0
-    maria = 0
-
-    a = [1 for x in range(sorted(nums)[-1] + 1)]
-    a[0], a[1] = 0, 0
-
-    for i in range(2, len(a)):
-        for j in range(2, len(a)):
-            try:
-                a[j * x] = 0
-            except (ValueError, IndexError):
-                break
-
-    for i in nums:
-        if sum(a[0:i + 1]) % 2 == 0:
-            ben += 1
+    def winner(n):
+        primes = sieve_of_eratosthenes(n)
+        if len(primes) % 2 == 0:
+            return "Ben"
         else:
-            maria += 1
+            return "Maria"
 
-    if ben > maria:
-        return "Ben"
-    if maria > ben:
+    winners = [winner(n) for n in nums]
+    maria_wins = winners.count("Maria")
+    ben_wins = winners.count("Ben")
+
+    if maria_wins == ben_wins:
+        return None
+    elif maria_wins > ben_wins:
         return "Maria"
-
-    return None
-
+    else:
+        return "Ben"
